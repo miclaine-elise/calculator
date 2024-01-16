@@ -56,8 +56,7 @@ for (let i = 0; i <= operatorBtns.length - 1; i++) {
             } else {
                 equation.textContent = equation.textContent + input.textContent + this.textContent;
             }
-            let expression = equation.textContent;
-            terms = expression.replaceAll('=', '').replaceAll('+', '#').replaceAll('-', '#').replaceAll('x', '#').replaceAll('/', '#').split('#');
+            getTerms();
             //If there's already a second term, evaluate current expression and then append the operator that was just pressed.
             if (terms[1] !== '') {
                 newOperator = this.textContent;
@@ -80,8 +79,7 @@ for (let i = 0; i <= operatorBtns.length - 1; i++) {
 }
 evaluateBtn.addEventListener("click", function (event) {
     equation.textContent = equation.textContent + input.textContent + this.textContent;
-    let expression = equation.textContent;
-    terms = expression.replace('=', '').replace('+', '#').replace('-', '#').replace('x', '#').replace('/', '#').split('#');
+    getTerms();
     if (terms[1]) {
         evaluateExpression();
         evaluated = true;
@@ -91,7 +89,19 @@ evaluateBtn.addEventListener("click", function (event) {
 
     }
 });
+
+function getTerms() {
+    if (equation.textContent.slice(0, 1) === "-") {
+        expression = equation.textContent.slice(1);
+        terms = expression.replaceAll('=', '').replaceAll('+', '#').replaceAll('-', '#').replaceAll('x', '#').replaceAll('/', '#').split('#');
+        terms[0] = -+terms[0];
+    } else {
+        let expression = equation.textContent;
+        terms = expression.replaceAll('=', '').replaceAll('+', '#').replaceAll('-', '#').replaceAll('x', '#').replaceAll('/', '#').split('#');
+    }
+}
 function evaluateExpression() {
+    console.log("term1: " + terms[0] + " operator:" + operator + " term2: " + terms[1]);
     let solution;
     switch (operator) {
         case operator = "+":
