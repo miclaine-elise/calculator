@@ -90,19 +90,21 @@
                 equation.textContent = equation.textContent + input.textContent + this.textContent;
                 let expression = equation.textContent;
                 terms = expression.replace('=', '').replace('+', '#').replace('-', '#').replace('x', '#').replace('/', '#').split('#');
-                console.log(terms);
-
-                if (this.textContent !== "=") {
+                if (terms[1] !== '' && this.textContent !== "=") {
+                    newOperator = this.textContent;
+                    evaluateExpression();
+                    operator = newOperator;
+                    equation.textContent = result + operator;
+                } else if (this.textContent !== "=") {
                     operator = this.textContent;
-                    if (terms[1] !== '') {
-                        evaluateExpression();
-                        equation.textContent = result + operator;
-                    }
                 }
                 clearInput();
             });
         }
-        evaluateBtn.addEventListener("click", evaluateExpression);
+        evaluateBtn.addEventListener("click", function (event) {
+            evaluateExpression();
+            evaluated = true;
+        });
         function evaluateExpression() {
             switch (operator) {
                 case operator = "+":
@@ -119,7 +121,6 @@
                     break;
             }
             input.textContent = result;
-            evaluated = true;
         }
 
     </script>
