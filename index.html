@@ -41,20 +41,54 @@
             <div id="row5" class="row">
                 <button class='num'>.</button>
                 <button class='num'>0</button>
-                <button class='operator'>=</button>
+                <button class="operator" id='evaluate'>=</button>
                 <button class='operator'>+</button>
             </div>
         </div>
     </div>
     <script>
         let input = document.querySelector('#input');
+        let equation = document.querySelector('#equation');
         let num = document.querySelectorAll('.num');
-        for (let i = 0; i <= num.length - 1; i++) {
-            num[i].addEventListener('click', function (event) {
-                input.textContent = input.textContent + this.textContent;
-            });
+        let operators = document.querySelectorAll('.operator');
+        let evaluate = document.querySelector('#evaluate');
+        let operator;
+        let result;
 
+        showNumInput();
+        function showNumInput() {
+            for (let i = 0; i <= num.length - 1; i++) {
+                num[i].addEventListener('click', function (event) {
+                    input.textContent = input.textContent + this.textContent;
+                });
+            }
         }
+        function clearInput() {
+            input.textContent = '';
+        }
+        for (let i = 0; i <= operators.length - 1; i++) {
+            operators[i].addEventListener('click', function (event) {
+                equation.textContent = equation.textContent + input.textContent + this.textContent;
+                if (this.textContent !== "=") {
+                    operator = this.textContent;
+                }
+                clearInput();
+            });
+        }
+        evaluate.addEventListener('click', evaluateExpression);
+        function evaluateExpression() {
+            let expression = equation.textContent;
+            let terms = expression.replace('=', '').split('+');
+            switch (operator) {
+                case operator = "+":
+                    result = +terms[0] + +terms[1];
+                    break;
+                case operator = "-":
+                    result = terms[0] - terms[1];
+            }
+            input.textContent = result;
+        }
+
     </script>
 </body>
 
