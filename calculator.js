@@ -36,7 +36,7 @@ function showNumInput() {
                 evaluated = false;
             }
             input.textContent = input.textContent + this.textContent;
-            handleOverflowingText('#input', 48);
+            handleOverflow('#input', 48);
             operatedFlag = false;
         });
     }
@@ -108,23 +108,19 @@ function evaluateExpression() {
     }
     if (solution > 999999) {
         result = solution.toExponential(4);
+    } else {
+        result = solution;
     }
-    // result = Math.round(solution * 10000) / 10000;
     input.textContent = result;
-    handleOverflowingText('#input', 48);
-    handleOverflowingText('#equation', 16);
+    handleOverflow('#input', 48);
+    handleOverflow('#equation', 16);
 
 }
 
-function handleOverflowingText(id, size) {
-    console.log("called handleOverflowingText");
+function handleOverflow(id, size) {
     let element = document.querySelector(id);
     element.style.fontSize = size + "px"
     const parent_width = parseInt(getComputedStyle(element.parentElement).getPropertyValue('width'));
-    console.log("parent width: " + parent_width);
-    console.log("text size: " + size);
-    console.log("element offset width: " + element.offsetWidth);
-
     while (element.offsetWidth > parent_width) {
         element.style.fontSize = size + "px"
         size -= 1
