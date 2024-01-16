@@ -10,82 +10,103 @@
 </head>
 
 <body>
-    <div id='container'>
-        <div id='screen'>
+    <div id="container">
+        <div id="screen">
             <text id="equation"></text>
             <text id="input"></text>
         </div>
-        <div id='keypad'>
+        <div id="keypad">
             <div id="row1" class="row">
-                <button class='function'>CLEAR</button>
-                <button class='function'>DELETE</button>
+                <button class="function" id="clear">CLEAR</button>
+                <button class="function" id="delete">DELETE</button>
             </div>
             <div id="row2" class="row">
-                <button class='num'>7</button>
-                <button class='num'>8</button>
-                <button class='num'>9</button>
-                <button class='operator'>/</button>
+                <button class="num">7</button>
+                <button class="num">8</button>
+                <button class="num">9</button>
+                <button class="operator">/</button>
             </div>
             <div id="row3" class="row">
-                <button class='num'>4</button>
-                <button class='num'>5</button>
-                <button class='num'>6</button>
-                <button class='operator'>x</button>
+                <button class="num">4</button>
+                <button class="num">5</button>
+                <button class="num">6</button>
+                <button class="operator">x</button>
             </div>
             <div id="row4" class="row">
-                <button class='num'>1</button>
-                <button class='num'>2</button>
-                <button class='num'>3</button>
-                <button class='operator'>-</button>
+                <button class="num">1</button>
+                <button class="num">2</button>
+                <button class="num">3</button>
+                <button class="operator">-</button>
             </div>
             <div id="row5" class="row">
-                <button class='num'>.</button>
-                <button class='num'>0</button>
-                <button class="operator" id='evaluate'>=</button>
-                <button class='operator'>+</button>
+                <button class="num">.</button>
+                <button class="num">0</button>
+                <button class="operator" id="evaluate">=</button>
+                <button class="operator">+</button>
             </div>
         </div>
     </div>
     <script>
-        let input = document.querySelector('#input');
-        let equation = document.querySelector('#equation');
-        let num = document.querySelectorAll('.num');
-        let operators = document.querySelectorAll('.operator');
-        let evaluate = document.querySelector('#evaluate');
+        let input = document.querySelector("#input");
+        let equation = document.querySelector("#equation");
+        let num = document.querySelectorAll(".num");
+        let operatorBtns = document.querySelectorAll(".operator");
+        let evaluateBtn = document.querySelector("#evaluate");
+        let clearBtn = document.querySelector("#clear");
+        let deleteBtn = document.querySelector("#delete");
         let operator;
         let result;
         let terms;
+        let evaluated;
 
+        clearBtn.addEventListener("click", function (event) {
+            clearInput();
+            clearExpression();
+        });
+
+        deleteBtn.addEventListener("click", function (event) {
+            input.textContent = input.textContent.slice(0, -1);
+        })
         showNumInput();
         function showNumInput() {
             for (let i = 0; i <= num.length - 1; i++) {
-                num[i].addEventListener('click', function (event) {
-                    clearInput();
+                num[i].addEventListener("click", function (event) {
+                    if (evaluated === true) {
+                        clearInput();
+                        clearExpression();
+                        evaluated = false;
+                    }
                     input.textContent = input.textContent + this.textContent;
                 });
             }
         }
         function clearInput() {
-            input.textContent = '';
+            input.textContent = "";
         }
-        for (let i = 0; i <= operators.length - 1; i++) {
-            operators[i].addEventListener('click', function (event) {
+        function clearExpression() {
+            equation.textContent = "";
+        }
+        for (let i = 0; i <= operatorBtns.length - 1; i++) {
+            operatorBtns[i].addEventListener("click", function (event) {
                 equation.textContent = equation.textContent + input.textContent + this.textContent;
                 let expression = equation.textContent;
-                terms = expression.replace('=', '').split('+');
+                terms = expression.replace("=", "").replace("+", "#").replace("-", "#").replace("/", "#").replace("x", "#").split("#");
+
                 console.log(terms);
 
                 if (this.textContent !== "=") {
                     operator = this.textContent;
-                    if (terms[1] !== '') {
+                    if (terms[1] !== "") {
                         evaluateExpression();
                         equation.textContent = result + operator;
                     }
+                    clearInput();
+
                 }
 
             });
         }
-        evaluate.addEventListener('click', evaluateExpression);
+        evaluateBtn.addEventListener("click", evaluateExpression);
         function evaluateExpression() {
             switch (operator) {
                 case operator = "+":
@@ -103,6 +124,7 @@
                     break;
             }
             input.textContent = result;
+            evaluated = true;
 
         }
 
