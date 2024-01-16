@@ -57,12 +57,6 @@
         let operator;
         let result;
         let terms;
-        let evaluated;
-
-        clearBtn.addEventListener("click", function (event) {
-            clearInput();
-            clearExpression();
-        });
 
         deleteBtn.addEventListener("click", function (event) {
             input.textContent = input.textContent.slice(0, -1);
@@ -70,12 +64,8 @@
         showNumInput();
         function showNumInput() {
             for (let i = 0; i <= num.length - 1; i++) {
-                num[i].addEventListener("click", function (event) {
-                    if (evaluated === true) {
-                        clearInput();
-                        clearExpression();
-                        evaluated = false;
-                    }
+                num[i].addEventListener('click', function (event) {
+                    clearInput();
                     input.textContent = input.textContent + this.textContent;
                 });
             }
@@ -90,45 +80,33 @@
             operatorBtns[i].addEventListener("click", function (event) {
                 equation.textContent = equation.textContent + input.textContent + this.textContent;
                 let expression = equation.textContent;
-                terms = expression.replace("=", "").replace("+", "#").replace("-", "#").replace("/", "#").replace("x", "#").split("#");
-
+                terms = expression.replace('=', '').split('+');
                 console.log(terms);
 
                 if (this.textContent !== "=") {
                     operator = this.textContent;
-                    if (terms[1] !== "") {
+                    if (terms[1] !== '') {
                         evaluateExpression();
                         equation.textContent = result + operator;
                     }
-                    clearInput();
-
                 }
-
+                clearInput();
             });
         }
         evaluateBtn.addEventListener("click", evaluateExpression);
         function evaluateExpression() {
+            let expression = equation.textContent;
+            let terms = expression.replace('=', '').split('+');
             switch (operator) {
                 case operator = "+":
                     result = +terms[0] + +terms[1];
-                    console.log(result);
                     break;
                 case operator = "-":
                     result = terms[0] - terms[1];
-                    break;
-                case operator = "x":
-                    result = terms[0] * terms[1];
-                    break;
-                case operator = "/":
-                    result = terms[0] / terms[1];
-                    break;
             }
             input.textContent = result;
-            evaluated = true;
 
         }
-
-
 
     </script>
 </body>
