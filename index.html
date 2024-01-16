@@ -11,7 +11,10 @@
 
 <body>
     <div id='container'>
-        <text id='screen'>0</text>
+        <div id='screen'>
+            <text id="equation"></text>
+            <text id="input"></text>
+        </div>
         <div id='keypad'>
             <div id="row1" class="row">
                 <button class='function'>CLEAR</button>
@@ -41,19 +44,18 @@
                 <button class='operator'>=</button>
                 <button class='operator'>+</button>
             </div>
-
-
-
-
-
-
-
-
-
-
-
         </div>
     </div>
+    <script>
+        let input = document.querySelector('#input');
+        let num = document.querySelectorAll('.num');
+        for (let i = 0; i <= num.length - 1; i++) {
+            num[i].addEventListener('click', function (event) {
+                input.textContent = input.textContent + this.textContent;
+            });
+
+        }
+    </script>
 </body>
 
 </html>
