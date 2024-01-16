@@ -58,6 +58,7 @@
         let result;
         let terms;
         let evaluated;
+        let operated;
 
         clearBtn.addEventListener("click", function (event) {
             clearInput();
@@ -76,6 +77,7 @@
                         evaluated = false;
                     }
                     input.textContent = input.textContent + this.textContent;
+                    operated = false;
                 });
             }
         }
@@ -87,16 +89,24 @@
         }
         for (let i = 0; i <= operatorBtns.length - 1; i++) {
             operatorBtns[i].addEventListener("click", function (event) {
-                equation.textContent = equation.textContent + input.textContent + this.textContent;
-                let expression = equation.textContent;
-                terms = expression.replace('=', '').replace('+', '#').replace('-', '#').replace('x', '#').replace('/', '#').split('#');
-                if (terms[1] !== '' && this.textContent !== "=") {
-                    newOperator = this.textContent;
-                    evaluateExpression();
-                    operator = newOperator;
-                    equation.textContent = result + operator;
+                console.log(operated);
+                if (operated === false) {
+                    operated = true;
+                    equation.textContent = equation.textContent + input.textContent + this.textContent;
+                    let expression = equation.textContent;
+                    terms = expression.replace('=', '').replace('+', '#').replace('-', '#').replace('x', '#').replace('/', '#').split('#');
+                    if (terms[1] !== '' && this.textContent !== "=") {
+                        newOperator = this.textContent;
+                        evaluateExpression();
+                        operator = newOperator;
+                        equation.textContent = result + operator;
+                    }
                 } else if (this.textContent !== "=") {
+                    equation.textContent = equation.textContent.slice(0, -1);
                     operator = this.textContent;
+                    equation.textContent = equation.textContent + input.textContent + this.textContent;
+
+
                 }
                 clearInput();
             });
