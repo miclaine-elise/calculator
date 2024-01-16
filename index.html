@@ -54,11 +54,13 @@
         let evaluate = document.querySelector('#evaluate');
         let operator;
         let result;
+        let terms;
 
         showNumInput();
         function showNumInput() {
             for (let i = 0; i <= num.length - 1; i++) {
                 num[i].addEventListener('click', function (event) {
+                    clearInput();
                     input.textContent = input.textContent + this.textContent;
                 });
             }
@@ -69,25 +71,42 @@
         for (let i = 0; i <= operators.length - 1; i++) {
             operators[i].addEventListener('click', function (event) {
                 equation.textContent = equation.textContent + input.textContent + this.textContent;
+                let expression = equation.textContent;
+                terms = expression.replace('=', '').split('+');
+                console.log(terms);
+
                 if (this.textContent !== "=") {
                     operator = this.textContent;
+                    if (terms[1] !== '') {
+                        evaluateExpression();
+                        equation.textContent = result + operator;
+                    }
                 }
-                clearInput();
+
             });
         }
         evaluate.addEventListener('click', evaluateExpression);
         function evaluateExpression() {
-            let expression = equation.textContent;
-            let terms = expression.replace('=', '').split('+');
             switch (operator) {
                 case operator = "+":
                     result = +terms[0] + +terms[1];
+                    console.log(result);
                     break;
                 case operator = "-":
                     result = terms[0] - terms[1];
+                    break;
+                case operator = "x":
+                    result = terms[0] * terms[1];
+                    break;
+                case operator = "/":
+                    result = terms[0] / terms[1];
+                    break;
             }
             input.textContent = result;
+
         }
+
+
 
     </script>
 </body>
