@@ -5,6 +5,7 @@ let operatorBtns = document.querySelectorAll(".operator");
 let evaluateBtn = document.querySelector("#evaluate");
 let clearBtn = document.querySelector("#clear");
 let deleteBtn = document.querySelector("#delete");
+let btns = document.querySelectorAll('button');
 let operator;
 let result;
 let terms;

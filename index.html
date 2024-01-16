@@ -11,46 +11,54 @@
 
 <body>
     <div id="container">
-        <div id="screen">
-            <div class="container">
-                <text class="shrink" id="equation"></text>
+        <div id="calculator">
+            <div id="screen">
+                <div class="container">
+                    <text class="shrink" id="equation"></text>
+                </div>
+                <div class="container">
+                    <text class="shrink" id="input"></text>
+                </div>
             </div>
-            <div class="container">
-                <text class="shrink" id="input"></text>
-            </div>
-        </div>
-        <div id="keypad">
-            <div id="row1" class="row">
-                <button class="function" id="clear">CLEAR</button>
-                <button class="function" id="delete">DELETE</button>
-            </div>
-            <div id="row2" class="row">
-                <button class="num">7</button>
-                <button class="num">8</button>
-                <button class="num">9</button>
-                <button class="operator">/</button>
-            </div>
-            <div id="row3" class="row">
-                <button class="num">4</button>
-                <button class="num">5</button>
-                <button class="num">6</button>
-                <button class="operator">x</button>
-            </div>
-            <div id="row4" class="row">
-                <button class="num">1</button>
-                <button class="num">2</button>
-                <button class="num">3</button>
-                <button class="operator">-</button>
-            </div>
-            <div id="row5" class="row">
-                <button class="num">.</button>
-                <button class="num">0</button>
-                <button id="evaluate">=</button>
-                <button class="operator">+</button>
+            <div id="keypad">
+                <div id="row1" class="row">
+                    <button class="function" id="clear">CLEAR</button>
+                    <button class="function" id="delete">DELETE</button>
+                </div>
+                <div id="row2" class="row">
+                    <button class="num">7</button>
+                    <button class="num">8</button>
+                    <button class="num">9</button>
+                    <button class="operator">/</button>
+                </div>
+                <div id="row3" class="row">
+                    <button class="num">4</button>
+                    <button class="num">5</button>
+                    <button class="num">6</button>
+                    <button class="operator">x</button>
+                </div>
+                <div id="row4" class="row">
+                    <button class="num">1</button>
+                    <button class="num">2</button>
+                    <button class="num">3</button>
+                    <button class="operator">-</button>
+                </div>
+                <div id="row5" class="row">
+                    <button class="num">.</button>
+                    <button class="num">0</button>
+                    <button id="evaluate">=</button>
+                    <button class="operator">+</button>
+                </div>
             </div>
         </div>
     </div>
+
+    <footer id="footer">made by
+        <a href=https://github.com/miclaine-elise>miclaine</a>
+        <img id="gitHubLogo" src="github-logo.png" alt="GitHub Logo">
+    </footer>
     <script src="calculator.js"></script>
+
 </body>
 
 </html>
