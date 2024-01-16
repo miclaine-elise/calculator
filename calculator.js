@@ -36,6 +36,7 @@ function showNumInput() {
                 evaluated = false;
             }
             input.textContent = input.textContent + this.textContent;
+            handleOverflowingText('#input', 48);
             operatedFlag = false;
         });
     }
@@ -90,19 +91,43 @@ evaluateBtn.addEventListener("click", function (event) {
     }
 });
 function evaluateExpression() {
+    let solution;
     switch (operator) {
         case operator = "+":
-            result = +terms[0] + +terms[1];
+            solution = +terms[0] + +terms[1];
             break;
         case operator = "-":
-            result = terms[0] - terms[1];
+            solution = terms[0] - terms[1];
             break;
         case operator = "x":
-            result = terms[0] * terms[1];
+            solution = terms[0] * terms[1];
             break;
         case operator = "/":
-            result = terms[0] / terms[1];
+            solution = terms[0] / terms[1];
             break;
     }
+    if (solution > 999999) {
+        result = solution.toExponential(4);
+    }
+    // result = Math.round(solution * 10000) / 10000;
     input.textContent = result;
+    handleOverflowingText('#input', 48);
+    handleOverflowingText('#equation', 16);
+
 }
+
+function handleOverflowingText(id, size) {
+    console.log("called handleOverflowingText");
+    let element = document.querySelector(id);
+    element.style.fontSize = size + "px"
+    const parent_width = parseInt(getComputedStyle(element.parentElement).getPropertyValue('width'));
+    console.log("parent width: " + parent_width);
+    console.log("text size: " + size);
+    console.log("element offset width: " + element.offsetWidth);
+
+    while (element.offsetWidth > parent_width) {
+        element.style.fontSize = size + "px"
+        size -= 1
+    }
+}
+
