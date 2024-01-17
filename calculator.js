@@ -13,7 +13,7 @@ let evaluated;
 let operatedFlag;
 
 clearBtn.addEventListener("click", function (event) {
-    clearInput();
+    clearInput(0);
     clearExpression();
 })
 deleteBtn.addEventListener("click", function (event) {
@@ -21,8 +21,8 @@ deleteBtn.addEventListener("click", function (event) {
         input.textContent = input.textContent.slice(0, -1);
     }
 })
-function clearInput() {
-    input.textContent = "";
+function clearInput(value) {
+    input.textContent = value;
 }
 function clearExpression() {
     equation.textContent = "";
@@ -36,6 +36,9 @@ function showNumInput() {
                 clearExpression();
                 evaluated = false;
             }
+            if (input.textContent.slice(0, 1) === "0") {
+                input.textContent = input.textContent.slice(1);
+            }
             input.textContent = input.textContent + this.textContent;
             handleOverflow('#input', 48);
             operatedFlag = false;
@@ -48,7 +51,6 @@ for (let i = 0; i <= operatorBtns.length - 1; i++) {
         //operatedFlag is a flag keeping track if the last button pressed was an operator. 
         if (!operatedFlag) {
             operatedFlag = true;
-
             //Restart the expression with the result if there is one
             if (evaluated) {
                 equation.textContent = input.textContent + this.textContent;
